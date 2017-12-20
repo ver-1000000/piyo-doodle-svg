@@ -1,0 +1,57 @@
+:host {
+  cursor: pointer;
+  animation: appear .5s ease;
+  transform-origin: center;
+
+  g {
+    transition: linear .2s all;
+  }
+
+  image {
+    x: -60;
+    height: 60px;
+    @each $key, $val in (down: -60, up: -600, right: -420, left: -240) {
+      &.#{$key} {
+        x: $val;
+        &.walking {
+          animation: $key .4s step-start infinite;
+        }
+      }
+    }
+  }
+}
+
+@keyframes appear { from { transform: scale(2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+@keyframes down {
+  0%   { x: -60 }
+  25%  { x: 0 }
+  50%   { x: -60 }
+  75% { x: -120 }
+  100%   { x: -60 }
+}
+
+@keyframes left {
+  0%   { x: -240 }
+  25%  { x: -180 }
+  50%   { x: -240 }
+  75% { x: -300 }
+  100%   { x: -240 }
+}
+
+@keyframes right {
+  0%   { x: -420 }
+  25%  { x: -360 }
+  50%   { x: -420 }
+  75% { x: -480 }
+  100%   { x: -420 }
+}
+
+@keyframes up {
+  0%   { x: -600 }
+  25%  { x: -540 }
+  50%   { x: -600 }
+  75% { x: -660 }
+  100%   { x: -600 }
+}
+

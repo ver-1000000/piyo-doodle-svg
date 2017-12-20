@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
+  background: #ffff92;
+  svg {
+    width: auto;
+    margin: auto;
+    background: black;
+    height: 100%;
+  }
+}
+

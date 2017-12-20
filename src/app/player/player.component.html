@@ -1,0 +1,8 @@
+<svg:g [attr.transform]="'translate(' + x + ', ' + y + ')'" (transitionend)="walking = false">
+  <svg:clipPath id="clip-{{ id }}">
+    <svg:rect x="0" y="0" width="60" height="60"/>
+  </svg:clipPath>
+
+  <svg:image xlink:href="assets/player.svg" attr.clip-path="url(#clip-{{ id }})"
+    attr.class="{{ state }}{{ walking ? ' walking' : '' }}"/>
+</svg:g>
