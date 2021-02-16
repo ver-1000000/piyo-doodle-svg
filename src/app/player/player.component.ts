@@ -3,7 +3,7 @@ import { ChangeDetectorRef, ChangeDetectionStrategy, Component, Input } from '@a
 import { CommandType, ControllerService } from '../controller.service';
 
 @Component({
-  selector: '[pd-player]',
+  selector: '[app-player]',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

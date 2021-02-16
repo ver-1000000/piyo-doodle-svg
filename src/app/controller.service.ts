@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
-import { interval } from 'rxjs/observable/interval';
+import { fromEvent, interval, merge, BehaviorSubject } from 'rxjs';
 import { filter, map, tap, withLatestFrom } from 'rxjs/operators';
 
 /**
- * $B$5$^$6$^$JL?Na$rH/9T$9$k%5!<%S%9(B
+ * キー入力を`this.command$`オブザーバブルとして提供するサービス。
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ControllerService {
   command$ = new BehaviorSubject<CommandType>('noop');
 
   constructor() {
-    const filter$     = filter((e: KeyboardEvent) => [13, 32, 37, 38, 39, 40].includes(e.keyCode));
-    const fromEvents$ = merge<KeyboardEvent>(fromEvent(window, 'keydown'), fromEvent(window, 'keyup'));
+    const filterFn = filter((e: KeyboardEvent) => [13, 32, 37, 38, 39, 40].includes(e.keyCode));
+    const events$  = merge<KeyboardEvent>(fromEvent<KeyboardEvent>(window, 'keydown'), fromEvent<KeyboardEvent>(window, 'keyup'));
     interval(200).pipe(
-      withLatestFrom(fromEvents$.pipe(filter$), (_, e) => e),
+      withLatestFrom(events$.pipe(filterFn), (_, e) => e),
       tap(e => e.preventDefault()),
       map(e => e.type === 'keyup' ? 'noop' : KEYMAP[e.keyCode])
     ).subscribe((command: CommandType) => this.command$.next(command));
